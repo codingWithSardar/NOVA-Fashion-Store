@@ -1,0 +1,425 @@
+const toImages = (urls) => urls.map((url) => ({ image_URL: url }));
+
+// ======================================================
+// PRODUCTS
+// ======================================================
+
+export const dummyProducts = [
+  {
+    _id: "p001",
+    name: "Satin Evening Gown",
+    brand: "NOVA",
+    isFeatured: true,
+    description:
+      "Elegant full-length satin evening gown with a graceful silhouette, perfect for weddings, formal dinners and special occasions.",
+    price: 12500,
+    discount: 10,
+    finalPrice: 11250,
+
+    image: [
+      "https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=900&q=80",
+    ],
+
+    images: toImages([
+      "https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=900&q=80",
+    ]),
+
+    category: "Dresses",
+    subCategory: "Evening Wear",
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Black", "Rose", "Burgundy"],
+    bestseller: true,
+    onSale: true,
+    discountPrice: 11250,
+    stock: 12,
+    date: 1755600000000,
+  },
+
+  {
+    _id: "p002",
+    name: "Classic Beige Trench Coat",
+    brand: "NOVA",
+    isFeatured: true,
+    description:
+      "A timeless double-breasted beige trench coat featuring a belted waist and refined tailoring.",
+    price: 14500,
+    discount: 15,
+    finalPrice: 12325,
+
+    image: [
+      "https://images.unsplash.com/photo-1544022613-e87ca75a784a?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?auto=format&fit=crop&w=900&q=80",
+    ],
+
+    images: toImages([
+      "https://images.unsplash.com/photo-1544022613-e87ca75a784a?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?auto=format&fit=crop&w=900&q=80",
+    ]),
+
+    category: "Outerwear",
+    subCategory: "Coats",
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Beige", "Black", "Camel"],
+    bestseller: true,
+    onSale: true,
+    discountPrice: 12325,
+    stock: 8,
+    date: 1755700000000,
+  },
+
+  {
+    _id: "p003",
+    name: "Premium Linen Shirt",
+    brand: "StyleHive",
+    isFeatured: true,
+    description:
+      "Breathable premium linen shirt with a relaxed fit, designed for comfortable everyday styling.",
+    price: 4200,
+    discount: 0,
+    finalPrice: 4200,
+
+    image: [
+      "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=900&q=80",
+    ],
+
+    images: toImages([
+      "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=900&q=80",
+    ]),
+
+    category: "Shirts",
+    subCategory: "Casual",
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["White", "Cream", "Sky Blue"],
+    bestseller: true,
+    onSale: false,
+    stock: 25,
+    date: 1755800000000,
+  },
+
+  {
+    _id: "p004",
+    name: "Crystal Embellished Clutch",
+    brand: "NOVA",
+    isFeatured: true,
+    description:
+      "Sophisticated evening clutch featuring elegant crystal detailing for formal and party outfits.",
+    price: 5500,
+    discount: 20,
+    finalPrice: 4400,
+
+    image: [
+      "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1594223274512-ad4803739b7c?auto=format&fit=crop&w=900&q=80",
+    ],
+
+    images: toImages([
+      "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1594223274512-ad4803739b7c?auto=format&fit=crop&w=900&q=80",
+    ]),
+
+    category: "Accessories",
+    subCategory: "Bags",
+    sizes: ["One Size"],
+    colors: ["Gold", "Silver", "Black"],
+    bestseller: true,
+    onSale: true,
+    discountPrice: 4400,
+    stock: 15,
+    date: 1755900000000,
+  },
+
+  {
+    _id: "p005",
+    name: "Tailored Wool Blazer",
+    brand: "StyleHive",
+    isFeatured: true,
+    description:
+      "Premium tailored wool-blend blazer with a structured fit, ideal for office and smart casual outfits.",
+    price: 11000,
+    discount: 10,
+    finalPrice: 9900,
+
+    image: [
+      "https://images.unsplash.com/photo-1598808503746-f34c53b9323e?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1555069519-127aadedf1ee?auto=format&fit=crop&w=900&q=80",
+    ],
+
+    images: toImages([
+      "https://images.unsplash.com/photo-1598808503746-f34c53b9323e?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1555069519-127aadedf1ee?auto=format&fit=crop&w=900&q=80",
+    ]),
+
+    category: "Outerwear",
+    subCategory: "Blazers",
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Black", "Grey", "Navy"],
+    bestseller: true,
+    onSale: true,
+    discountPrice: 9900,
+    stock: 10,
+    date: 1756000000000,
+  },
+
+  {
+    _id: "p006",
+    name: "Floral Summer Midi Dress",
+    brand: "NOVA",
+    isFeatured: true,
+    description:
+      "Lightweight floral midi dress with a feminine silhouette, perfect for summer outings and brunches.",
+    price: 5200,
+    discount: 15,
+    finalPrice: 4420,
+
+    image: [
+      "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=900&q=80",
+    ],
+
+    images: toImages([
+      "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=900&q=80",
+    ]),
+
+    category: "Dresses",
+    subCategory: "Casual",
+    sizes: ["S", "M", "L"],
+    colors: ["Pink", "White", "Blue"],
+    bestseller: true,
+    onSale: true,
+    discountPrice: 4420,
+    stock: 20,
+    date: 1756100000000,
+  },
+
+  {
+    _id: "p007",
+    name: "Premium Leather Ankle Boots",
+    brand: "StyleHive",
+    isFeatured: true,
+    description:
+      "Classic leather ankle boots with a stylish silhouette and comfortable everyday design.",
+    price: 8500,
+    discount: 10,
+    finalPrice: 7650,
+
+    image: [
+      "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1608256246200-53e635b5b65f?auto=format&fit=crop&w=900&q=80",
+    ],
+
+    images: toImages([
+      "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1608256246200-53e635b5b65f?auto=format&fit=crop&w=900&q=80",
+    ]),
+
+    category: "Footwear",
+    subCategory: "Boots",
+    sizes: ["37", "38", "39", "40", "41"],
+    colors: ["Brown", "Black"],
+    bestseller: true,
+    onSale: true,
+    discountPrice: 7650,
+    stock: 14,
+    date: 1756200000000,
+  },
+
+  {
+    _id: "p008",
+    name: "Minimal Gold Pendant Necklace",
+    brand: "NOVA",
+    isFeatured: false,
+    description:
+      "Delicate gold necklace with a minimal pendant, designed to add subtle elegance to everyday outfits.",
+    price: 2800,
+    discount: 0,
+    finalPrice: 2800,
+
+    image: [
+      "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=900&q=80",
+    ],
+
+    images: toImages([
+      "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=900&q=80",
+    ]),
+
+    category: "Accessories",
+    subCategory: "Jewelry",
+    sizes: ["One Size"],
+    colors: ["Gold"],
+    bestseller: false,
+    onSale: false,
+    stock: 30,
+    date: 1756300000000,
+  },
+];
+
+
+// ======================================================
+// USER
+// ======================================================
+
+export const dummyUser = {
+  _id: "u001",
+  name: "Sardar Abdullah",
+  email: "sardar@example.com",
+  phone: "0300-0000000",
+
+  address: {
+    street: "Main Boulevard",
+    city: "Rawalpindi",
+    state: "Punjab",
+    zipcode: "46000",
+    country: "Pakistan",
+  },
+};
+
+
+// ======================================================
+// CART
+// IMPORTANT:
+// Cart.jsx uses:
+// item._id
+// item.name
+// item.price
+// item.image[0]
+// item.size
+// item.color
+// item.quantity
+// ======================================================
+
+export const dummyCartItems = [
+  {
+    _id: "p001",
+    name: "Satin Evening Gown",
+    price: 11250,
+
+    image: [
+      "https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=900&q=80",
+    ],
+
+    size: "M",
+    color: "Black",
+    quantity: 1,
+  },
+
+  {
+    _id: "p007",
+    name: "Premium Leather Ankle Boots",
+    price: 7650,
+
+    image: [
+      "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=900&q=80",
+    ],
+
+    size: "39",
+    color: "Brown",
+    quantity: 2,
+  },
+];
+
+
+// ======================================================
+// ORDERS
+// ======================================================
+
+export const dummyOrders = [
+  {
+    _id: "o001",
+
+    items: [
+      {
+        _id: "p001",
+        name: "Satin Evening Gown",
+        price: 11250,
+
+        image: [
+          "https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=900&q=80",
+        ],
+
+        size: "M",
+        color: "Black",
+        quantity: 1,
+      },
+    ],
+
+    amount: 11450,
+    status: "Delivered",
+    paymentMethod: "COD",
+    payment: true,
+    date: 1755000000000,
+
+    address: {
+      name: "Sardar Abdullah",
+      street: "Main Boulevard",
+      city: "Rawalpindi",
+      state: "Punjab",
+      zipcode: "46000",
+      country: "Pakistan",
+      phone: "0300-0000000",
+    },
+  },
+
+  {
+    _id: "o002",
+
+    items: [
+      {
+        _id: "p005",
+        name: "Tailored Wool Blazer",
+        price: 9900,
+
+        image: [
+          "https://images.unsplash.com/photo-1598808503746-f34c53b9323e?auto=format&fit=crop&w=900&q=80",
+        ],
+
+        size: "L",
+        color: "Navy",
+        quantity: 1,
+      },
+
+      {
+        _id: "p008",
+        name: "Minimal Gold Pendant Necklace",
+        price: 2800,
+
+        image: [
+          "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=900&q=80",
+        ],
+
+        size: "One Size",
+        color: "Gold",
+        quantity: 1,
+      },
+    ],
+
+    amount: 12900,
+    status: "Processing",
+    paymentMethod: "Card",
+    payment: true,
+    date: 1757000000000,
+
+    address: {
+      name: "Sardar Abdullah",
+      street: "Main Boulevard",
+      city: "Rawalpindi",
+      state: "Punjab",
+      zipcode: "46000",
+      country: "Pakistan",
+      phone: "0300-0000000",
+    },
+  },
+];
+
+
+// ======================================================
+// SHIPPING
+// ======================================================
+
+export const DUMMY_SHIPPING_FEE = 200;
