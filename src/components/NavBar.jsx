@@ -86,7 +86,7 @@ const NavBar = () => {
                       onClick={() => window.scrollTo(0, 0)}
                       to={item.path}
                       className={({ isActive }) =>
-                        `relative py-2 transition-colors duration-300 hover:text-[#C9A227] after:absolute after:left-0 after:-bottom-[1px] after:h-[2px] after:bg-[#C9A227] after:transition-all after:duration-300 ${
+                        `relative py-2 transition-colors duration-300 hover:text-[#C9A227] after:absolute after:left-0 after:-bottom-px after:h-0.5 after:bg-[#C9A227] after:transition-all after:duration-300 ${
                           isActive
                             ? "text-black after:w-full"
                             : "after:w-0 hover:after:w-full"
@@ -108,7 +108,7 @@ const NavBar = () => {
                 <Heart size={19} strokeWidth={1.75} />
 
                 {wishListProducts.length > 0 && (
-                  <span className="absolute top-2 right-2 h-[7px] w-[7px] rounded-full bg-red-500 ring-2 ring-white" />
+                  <span className="absolute top-2 right-2 h-7 w-7 rounded-full bg-red-500 ring-2 ring-white" />
                 )}
               </button>
 
@@ -118,7 +118,7 @@ const NavBar = () => {
               >
                 <ShoppingBag size={19} strokeWidth={1.75} />
 
-                <span className="absolute -top-1 -right-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-black text-[10px] font-bold text-white">
+                <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-black text-[10px] font-bold text-white">
                   {cartCount}
                 </span>
               </button>
@@ -165,7 +165,7 @@ const NavBar = () => {
                 <Heart size={20} strokeWidth={1.75} />
 
                 {wishListProducts.length > 0 && (
-                  <span className="absolute top-2 right-2 h-[7px] w-[7px] rounded-full bg-[#C9A227] ring-2 ring-white" />
+                  <span className="absolute top-2 right-2 h-7 w-7 rounded-full bg-[#C9A227] ring-2 ring-white" />
                 )}
               </button>
 
@@ -175,7 +175,7 @@ const NavBar = () => {
               >
                 <ShoppingBag size={20} strokeWidth={1.75} />
 
-                <span className="absolute -top-1 -right-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-black text-[10px] font-bold text-white">
+                <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-black text-[10px] font-bold text-white">
                   {cartCount}
                 </span>
               </button>
@@ -201,7 +201,7 @@ const NavBar = () => {
       >
         <div
           onClick={(e) => e.stopPropagation()}
-          className={`absolute right-0 top-0 h-screen w-[85%] max-w-[340px] bg-white shadow-2xl transition-transform duration-500 ease-out ${
+          className={`absolute right-0 top-0 h-screen w-[85%] max-w-85 bg-white shadow-2xl transition-transform duration-500 ease-out ${
             open ? "translate-x-0" : "translate-x-full"
           }`}
         >

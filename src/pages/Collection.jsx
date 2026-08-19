@@ -14,7 +14,15 @@ import { colorsData } from "../../../admin/src/data/data";
 import { dummyProducts } from "../dummy/dummydata";
 
 const sizeOptions = ["XS", "S", "M", "L", "XL", "XXL"];
-const categories = ["Dresses", "Tops & Shirts", "Bottoms", "Ethnic Wear", "Outerwear", "Accessories"];
+
+const categories = [
+  "Dresses",
+  "Tops & Shirts",
+  "Bottoms",
+  "Ethnic Wear",
+  "Outerwear",
+  "Accessories",
+];
 
 const Collection = () => {
   const {
@@ -32,33 +40,43 @@ const Collection = () => {
 
   const [filtersOpen, setFiltersOpen] = useState(false);
 
-  // Filtering + sorting now happens locally against dummyProducts
-  // (previously this ran on the backend via fetchProducts()).
   const products = useMemo(() => {
     let result = [...dummyProducts];
 
     if (category) {
-      result = result.filter((p) => p.category === category);
+      result = result.filter((product) => product.category === category);
     }
 
     if (colors.length > 0) {
-      result = result.filter((p) =>
-        p.colors?.some((c) => colors.includes(c)),
+      result = result.filter((product) =>
+        product.colors?.some((color) => colors.includes(color))
       );
     }
 
     if (sizes.length > 0) {
-      result = result.filter((p) =>
-        p.sizes?.some((s) => sizes.includes(s)),
+      result = result.filter((product) =>
+        product.sizes?.some((size) => sizes.includes(size))
       );
     }
 
-    result = result.filter((p) => p.finalPrice <= maxPrice);
+    result = result.filter(
+      (product) => Number(product.finalPrice || product.price || 0) <= maxPrice
+    );
 
     if (sort === "low-high") {
-      result.sort((a, b) => a.finalPrice - b.finalPrice);
-    } else if (sort === "high-low") {
-      result.sort((a, b) => b.finalPrice - a.finalPrice);
+      result.sort(
+        (a, b) =>
+          Number(a.finalPrice || a.price || 0) -
+          Number(b.finalPrice || b.price || 0)
+      );
+    }
+
+    if (sort === "high-low") {
+      result.sort(
+        (a, b) =>
+          Number(b.finalPrice || b.price || 0) -
+          Number(a.finalPrice || a.price || 0)
+      );
     }
 
     return result;
@@ -66,7 +84,10 @@ const Collection = () => {
 
   useEffect(() => {
     document.body.style.overflow = filtersOpen ? "hidden" : "";
-    return () => (document.body.style.overflow = "");
+
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [filtersOpen]);
 
   const clearFilters = () => {
@@ -78,7 +99,25 @@ const Collection = () => {
   };
 
   const activeFilterCount =
-    category.length + colors.length + sizes.length + (maxPrice < 30000 ? 1 : 0);
+    (category ? 1 : 0) +
+    colors.length +
+    sizes.length +
+    (maxPrice < 30000 ? 1 : 0);
+
+  const getImageUrl = (image) => {
+    if (!image) return "/placeholder.png";
+
+    if (typeof image === "string") {
+      const match = image.match(/\((https?:\/\/[^)]+)\)/);
+      return match ? match[1] : image;
+    }
+
+    if (typeof image === "object") {
+      return image.image_URL || image.url || image.image || "/placeholder.png";
+    }
+
+    return "/placeholder.png";
+  };
 
   const FilterPanel = () => (
     <div className="bg-white border border-neutral-200/60 rounded-2xl shadow-sm overflow-hidden">
@@ -100,6 +139,7 @@ const Collection = () => {
               Reset
             </button>
           )}
+
           <button
             onClick={() => setFiltersOpen(false)}
             className="lg:hidden text-neutral-500 hover:text-neutral-900"
@@ -122,7 +162,7 @@ const Collection = () => {
             {categories.map((cat) => (
               <button
                 key={cat}
-                onClick={(e) =>
+                onClick={() =>
                   setCategory((prev) => (prev === cat ? "" : cat))
                 }
                 className={`w-full rounded-xl border text-left px-4 py-3 flex justify-between items-center transition-all duration-300 ${
@@ -134,6 +174,7 @@ const Collection = () => {
                 <span className="capitalize text-xs font-semibold tracking-wide">
                   {cat}
                 </span>
+
                 <div
                   className={`h-3 w-3 rounded-full transition-all duration-300 border ${
                     category === cat
@@ -154,6 +195,7 @@ const Collection = () => {
                 Price Limit
               </h3>
             </div>
+
             <span className="bg-neutral-100 text-neutral-800 px-2.5 py-1 rounded-md text-[11px] font-bold tracking-wider">
               Rs. {maxPrice.toLocaleString()}
             </span>
@@ -191,7 +233,7 @@ const Collection = () => {
                   setColors((prev) =>
                     prev.includes(color.name)
                       ? prev.filter((item) => item !== color.name)
-                      : [...prev, color.name],
+                      : [...prev, color.name]
                   )
                 }
                 style={{ backgroundColor: color.hex }}
@@ -227,7 +269,7 @@ const Collection = () => {
                   setSizes((prev) =>
                     prev.includes(size)
                       ? prev.filter((item) => item !== size)
-                      : [...prev, size],
+                      : [...prev, size]
                   )
                 }
                 className={`rounded-lg py-2.5 text-xs font-semibold tracking-wide transition-all duration-300 border ${
@@ -264,7 +306,7 @@ const Collection = () => {
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className={`absolute left-0 top-0 h-full w-[85%] max-w-[360px] overflow-y-auto bg-[#faf9f6] p-4 transition-transform duration-500 ease-out ${
+            className={`absolute left-0 top-0 h-full w-[85%] max-w-90 overflow-y-auto bg-[#faf9f6] p-4 transition-transform duration-500 ease-out ${
               filtersOpen ? "translate-x-0" : "-translate-x-full"
             }`}
           >
@@ -278,6 +320,7 @@ const Collection = () => {
               <h2 className="text-xl font-bold tracking-tight text-neutral-900 font-serif">
                 All Products
               </h2>
+
               <p className="text-xs text-neutral-400 mt-1 font-medium tracking-wide uppercase">
                 Showing{" "}
                 <span className="text-[#C9A227] font-semibold">
@@ -294,6 +337,7 @@ const Collection = () => {
               >
                 <SlidersHorizontal size={14} />
                 Filters
+
                 {activeFilterCount > 0 && (
                   <span className="flex h-4 w-4 items-center justify-center rounded-full bg-[#C9A227] text-[10px] font-bold text-white">
                     {activeFilterCount}
@@ -306,6 +350,7 @@ const Collection = () => {
                   className="absolute left-3 text-neutral-400 pointer-events-none"
                   size={14}
                 />
+
                 <select
                   value={sort}
                   onChange={(e) => setSort(e.target.value)}
@@ -315,6 +360,7 @@ const Collection = () => {
                   <option value="low-high">Price: Low to High</option>
                   <option value="high-low">Price: High to Low</option>
                 </select>
+
                 <div className="absolute right-3 pointer-events-none text-neutral-400 text-[10px]">
                   ▼
                 </div>
@@ -327,6 +373,7 @@ const Collection = () => {
               {category && (
                 <span className="flex items-center gap-1.5 rounded-full bg-white border border-neutral-200 pl-3 pr-2 py-1.5 text-xs font-semibold text-neutral-700">
                   {category.toUpperCase()}
+
                   <button
                     onClick={() => setCategory("")}
                     className="text-neutral-400 hover:text-neutral-900"
@@ -342,9 +389,12 @@ const Collection = () => {
                   className="flex items-center gap-1.5 rounded-full bg-white border border-neutral-200 pl-3 pr-2 py-1.5 text-xs font-semibold capitalize text-neutral-700"
                 >
                   {color}
+
                   <button
                     onClick={() =>
-                      setColors((prev) => prev.filter((item) => item !== color))
+                      setColors((prev) =>
+                        prev.filter((item) => item !== color)
+                      )
                     }
                     className="text-neutral-400 hover:text-neutral-900"
                   >
@@ -352,15 +402,19 @@ const Collection = () => {
                   </button>
                 </span>
               ))}
+
               {sizes.map((size) => (
                 <span
                   key={size}
                   className="flex items-center gap-1.5 rounded-full bg-white border border-neutral-200 pl-3 pr-2 py-1.5 text-xs font-semibold text-neutral-700"
                 >
                   {size}
+
                   <button
                     onClick={() =>
-                      setSizes((prev) => prev.filter((item) => item !== size))
+                      setSizes((prev) =>
+                        prev.filter((item) => item !== size)
+                      )
                     }
                     className="text-neutral-400 hover:text-neutral-900"
                   >
@@ -368,9 +422,11 @@ const Collection = () => {
                   </button>
                 </span>
               ))}
+
               {maxPrice < 30000 && (
                 <span className="flex items-center gap-1.5 rounded-full bg-white border border-neutral-200 pl-3 pr-2 py-1.5 text-xs font-semibold text-neutral-700">
                   Under Rs. {maxPrice.toLocaleString()}
+
                   <button
                     onClick={() => setMaxPrice(30000)}
                     className="text-neutral-400 hover:text-neutral-900"
@@ -379,6 +435,7 @@ const Collection = () => {
                   </button>
                 </span>
               )}
+
               <button
                 onClick={clearFilters}
                 className="text-xs font-semibold text-[#C9A227] hover:text-neutral-900 transition-colors ml-1"
@@ -393,9 +450,11 @@ const Collection = () => {
               <div className="mx-auto w-12 h-12 rounded-full bg-neutral-50 flex items-center justify-center text-neutral-400 mb-4">
                 <SlidersHorizontal size={20} />
               </div>
+
               <h2 className="text-xl font-semibold text-neutral-800 mb-2 font-serif">
                 No Products Match Your Criteria
               </h2>
+
               <p className="text-sm text-neutral-400 max-w-sm mx-auto">
                 Adjust your filters, range parameters, or sizing parameters to
                 discover other tailored selections.
@@ -412,7 +471,9 @@ const Collection = () => {
                     id={product._id}
                     name={product.name}
                     price={product.price}
-                    images={product.images}
+                    images={(product.images || product.image || []).map(
+                      (image) => getImageUrl(image)
+                    )}
                     finalPrice={product.finalPrice}
                     discount={product.discount}
                   />

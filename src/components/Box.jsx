@@ -18,7 +18,7 @@ const Box = ({
   const [currentImage, setCurrentImage] = useState(0);
   const imageRef = useRef(null);
 
-  const { navigate, toggleWishList, wishListProducts } =
+  const { navigate, toggleWishList, wishListProducts = [] } =
     useContext(UserContext);
 
   const handleMouseEnter = () => {
@@ -40,6 +40,28 @@ const Box = ({
     return () => clearInterval(imageRef.current);
   }, []);
 
+  const getImageUrl = (image) => {
+    if (!image) return "/placeholder.png";
+
+    if (typeof image === "string") {
+      return image;
+    }
+
+    if (typeof image === "object") {
+      return (
+        image.image_URL ||
+        image.imageUrl ||
+        image.url ||
+        image.src ||
+        "/placeholder.png"
+      );
+    }
+
+    return "/placeholder.png";
+  };
+
+  const imageUrl = getImageUrl(images[currentImage]);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 35 }}
@@ -50,30 +72,33 @@ const Box = ({
       className="group bg-white rounded-[26px] border border-neutral-200 overflow-hidden hover:border-[#C9A227]/40 hover:shadow-[0_22px_55px_-22px_rgba(0,0,0,.28)] transition-all duration-500"
     >
       <div
-        className="relative aspect-[4/5] overflow-hidden bg-neutral-100"
+        className="relative aspect-4/5 overflow-hidden bg-neutral-100"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
         <AnimatePresence mode="wait">
           <motion.img
-            key={currentImage}
-            src={images[currentImage]?.image_URL || "/placeholder.png"}
-            alt={name}
+            key={imageUrl}
+            src={imageUrl}
+            alt={name || "Product"}
             initial={{ opacity: 0, scale: 1.08 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 1.04 }}
             transition={{ duration: 0.6 }}
-            className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-[1800ms]"
+            onError={(e) => {
+              e.currentTarget.src = "/placeholder.png";
+            }}
+            className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-1800"
           />
         </AnimatePresence>
 
         <div className="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-500" />
 
         <motion.button
-          whileHover={{ scale: 1.08 }}
-          whileTap={{ scale: 0.92 }}
-          onClick={() => navigate(`product/${id}`)}
-          className="absolute bottom-0 w-full left-1/2 -translate-x-1/2 bg-black text-white p-4 cursor-pointer text-xs uppercase tracking-[0.25em] opacity-0 translate-y-8 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500"
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          onClick={() => navigate(`/product/${id}`)}
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full bg-black text-white p-4 cursor-pointer text-xs uppercase tracking-[0.25em] opacity-0 translate-y-8 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500"
         >
           Quick View
         </motion.button>
@@ -98,7 +123,10 @@ const Box = ({
           {wishListProducts.some((product) => product._id === id) ? (
             <FaHeart className="text-red-600 text-lg" />
           ) : (
-            <Heart className="w-5 h-5 text-neutral-700" strokeWidth={1.8} />
+            <Heart
+              className="w-5 h-5 text-neutral-700"
+              strokeWidth={1.8}
+            />
           )}
         </motion.button>
       </div>
@@ -110,7 +138,7 @@ const Box = ({
         className="p-5"
       >
         <p className="uppercase tracking-[0.28em] text-[10px] text-neutral-400">
-          {brand}
+          {brand || "NOVA"}
         </p>
 
         <h3
@@ -122,12 +150,12 @@ const Box = ({
 
         <div className="flex items-center gap-3 mt-3">
           <span className="text-lg font-semibold">
-            Rs. {Number(finalPrice).toLocaleString()}
+            Rs. {Number(finalPrice ?? price ?? 0).toLocaleString()}
           </span>
 
           {discount > 0 && (
             <span className="text-sm text-neutral-400 line-through">
-              Rs. {Number(price).toLocaleString()}
+              Rs. {Number(price ?? 0).toLocaleString()}
             </span>
           )}
         </div>
