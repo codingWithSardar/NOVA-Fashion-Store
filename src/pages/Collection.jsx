@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import { UserContext } from "../context/UserContext";
 import Box from "../components/Box";
-import { colorsData } from "../../../admin/src/data/data";
+import { colorsData } from "../colors/colorData";
 import { dummyProducts } from "../dummy/dummydata";
 
 const sizeOptions = ["XS", "S", "M", "L", "XL", "XXL"];
